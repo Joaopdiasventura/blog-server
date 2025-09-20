@@ -1,0 +1,22 @@
+services:
+  server:
+    build:
+      context: .
+      target: final
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/blog?sslmode=disable
+    ports:
+      - 8080:8080
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - blog:/var/lib/postgresql/data
+
+volumes:
+  blog:
